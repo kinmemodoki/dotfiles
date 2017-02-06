@@ -1,43 +1,3 @@
-"NeoBundle Scripts-----------------------------
-if &compatible
-  set nocompatible
-endif
-
-set runtimepath^=~/.vim/bundle/neobundle.vim/
-
-call neobundle#begin(expand('~/.vim/bundle'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Add my bundle
-NeoBundle 'tomasr/molokai'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'Townk/vim-autoclose'
-NeoBundle 'Shougo/neocomplcache'
-
-
-" complete
-NeoBundle 'myhere/vim-nodejs-complete'
-autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
-if !exists('g:neocomplcache_omni_functions')
-  let g:neocomplcache_omni_functions = {}
-endif
-let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
-
-let g:node_usejscomplete = 1
-
-" You can specify revision/branch/tag.
-NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-call neobundle#end()
-filetype plugin indent on
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
-
-syntax enable
-colorscheme molokai
-
 set fenc=utf-8
 set nobackup
 set noswapfile
@@ -53,8 +13,8 @@ set showmatch
 set laststatus=2
 set wildmode=list:longest
 
-nnoremap j gj
-nnoremap k gk
+noremap j gj
+noremap k gk
 noremap <C-h>   ^
 noremap <C-j>   }
 noremap <C-k>   {
@@ -74,8 +34,46 @@ set incsearch
 set wrapscan
 set hlsearch
 
+syntax on
+colorscheme molokai
 
-"" neocomplcache
+
+
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+ 
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+ 
+call dein#begin('~/.vim/dein')
+ 
+call dein#add('Shougo/dein.vim')
+ 
+" dein でインストールするプラグインは以下のように書く
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/neocomplete') 
+call dein#add('Shougo/neocomplcache')
+
+" リビジョンとかブランチ指定する時はこんな感じに書く
+" call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+ 
+call dein#end()
+ 
+filetype plugin indent on
+ 
+" インストールしてないプラグインを vim 起動時に自動的にインストールする設定
+if dein#check_install()
+  call dein#install()
+endif
+ 
+"End dein Scripts-------------------------
+
+
+" neocomplcache--------------------------
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
@@ -102,7 +100,8 @@ endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
-" inoremap <expr><C-h> neocomplcache
-" he#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+"END neocomplcache------------------------
