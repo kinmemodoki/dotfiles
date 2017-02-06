@@ -155,6 +155,8 @@ alias ls='ls -G -F'
 # git alias
 alias g='git'
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
+alias -g C='`git log --oneline | peco | cut -d" " -f1`'
+alias -g R='`git reflog | peco | cut -d" " -f1`'
 
 # cdr, add-zsh-hook を有効にする
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
@@ -192,3 +194,12 @@ function peco-select-history() {
 }
 zle -N peco-select-history
 bindkey '^R' peco-select-history
+
+# show buffer stack
+show_buffer_stack() {
+  POSTDISPLAY="
+stack: $LBUFFER"
+  zle push-line
+}
+zle -N show_buffer_stack
+bindkey "^[q" show_buffer_stack
