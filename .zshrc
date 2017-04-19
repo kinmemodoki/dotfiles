@@ -1,3 +1,9 @@
+## 重複パスを登録しない
+typeset -U path cdpath fpath manpath
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="/usr/local/opt/openssl/bin:$PYENV_ROOT/bin:$PATH:/opt/locaL/bin:/opt/local/sbin"
+
 
 # 少し凝った zshrc
 # License : MIT
@@ -120,6 +126,8 @@ bindkey '^R' history-incremental-pattern-search-backward
 ########################################
 # エイリアス
 
+alias monitor='~/Library/Android/sdk/tools/monitor'
+
 alias la='ls -a'
 alias ll='ls -l'
 
@@ -135,6 +143,8 @@ alias sudo='sudo '
 # グローバルエイリアス
 alias -g L='| less'
 alias -g G='| grep'
+alias -g P='`docker ps -a | tail -n +2 | peco | cut -d" " -f1`'
+
 
 # C で標準出力をクリップボードにコピーする
 # mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
@@ -203,3 +213,13 @@ stack: $LBUFFER"
 }
 zle -N show_buffer_stack
 bindkey "^[q" show_buffer_stack
+
+# pyenv
+eval "$(pyenv init -)"
+
+
+
+fpath=(/path/to/homebrew/share/zsh-completions $fpath)
+
+autoload -U compinit
+compinit -u
