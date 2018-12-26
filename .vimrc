@@ -55,6 +55,7 @@ call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/neocomplete') 
 call dein#add('Shougo/neocomplcache')
+call dein#add('fatih/vim-go')
 
 " リビジョンとかブランチ指定する時はこんな感じに書く
 " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
@@ -104,4 +105,16 @@ inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
+inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "<CR>"
 "END neocomplcache------------------------
+
+
+"vim-go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+au FileType javascript map <F4>  :!node %<CR>

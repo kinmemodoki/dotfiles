@@ -3,7 +3,7 @@ typeset -U path cdpath fpath manpath
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="/usr/local/opt/openssl/bin:$PYENV_ROOT/bin:$PATH:/opt/locaL/bin:/opt/local/sbin"
-
+export PATH="$HOME/.rbenv/shims:${PATH}"
 
 # 少し凝った zshrc
 # License : MIT
@@ -13,8 +13,9 @@ export PATH="/usr/local/opt/openssl/bin:$PYENV_ROOT/bin:$PATH:/opt/locaL/bin:/op
 # 環境変数
 export LANG=ja_JP.UTF-8
 
+export GEM_HOME=/usr/local/Cellar/ruby/2.3.3/lib/ruby/gems/2.3.0
 
-# 色を使用出来るようにする
+#色を使用出来るようにする
 autoload -Uz colors
 colors
 
@@ -215,11 +216,9 @@ zle -N show_buffer_stack
 bindkey "^[q" show_buffer_stack
 
 # pyenv
-eval "$(pyenv init -)"
+#eval "$(pyenv init -)"
 
 
-
-fpath=(/path/to/homebrew/share/zsh-completions $fpath)
-
-autoload -U compinit
-compinit -u
+if [ -e /usr/local/share/zsh-completions ]; then
+  fpath=(/usr/local/share/zsh-completions $fpath)
+fi
